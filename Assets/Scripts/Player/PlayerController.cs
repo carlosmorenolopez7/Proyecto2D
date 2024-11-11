@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,13 +17,18 @@ public class PlayerController : MonoBehaviour
     private bool finJuego = false;
     private PlayerPoints playerPoints;
     public bool vulnerable;
+    private Animator animator;
+    public float fallThreshold;
+    public static event Action OnLifeLost;
 
     void Start()
     {
-       spriteRenderer = GetComponent<SpriteRenderer>();
-       finJuego = false;
-       playerPoints = GetComponent<PlayerPoints>();
-       vulnerable = true;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        finJuego = false;
+        playerPoints = GetComponent<PlayerPoints>();
+        vulnerable = true;
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -30,21 +36,34 @@ public class PlayerController : MonoBehaviour
         if (FinalizadoJuego())
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            spriteRenderer.enabled = false;
+            Die();
             return;
         }
+
         x = Input.GetAxis("Horizontal");
         if (Input.GetKeyDown(KeyCode.Space) && TocandoSuelo())
         {
-            rb.AddForce(Vector2.up*fuerzaSalto, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
         }
-        if (rb.velocity.x>0)
+
+        if (rb.velocity.x > 0)
         {
             spriteRenderer.flipX = false;
         }
-        else {
-            if(rb.velocity.x<0)
+        else if (rb.velocity.x < 0)
+        {
             spriteRenderer.flipX = true;
+        }
+
+        // Verificar si el jugador ha caído por debajo del umbral
+        if (transform.position.y < fallThreshold)
+        {
+            // Si el jugador cae por debajo del umbral, desencadenar la muerte
+            if (!finJuego)
+            {
+                finJuego = true;
+                StartCoroutine(CorrutinaFinJuego());
+            }
         }
     }
 
@@ -84,23 +103,25 @@ public class PlayerController : MonoBehaviour
         return tocaSuelo;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) 
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "enemy")
         {
             if (vulnerable)
+            {
+                animator.SetTrigger("Hurt");
+                spriteRenderer.color = Color.red;
+                vulnerable = false;
+                Invoke("HacerVulnerable", 0.75f);
+                playerPoints.QuitarVida();
+                OnLifeLost?.Invoke();
+                if (playerPoints.GetVidas() == 0)
                 {
-                    spriteRenderer.color = Color.red;
-                    vulnerable = false;
-                    Invoke("HacerVulnerable", 1f);
-                    playerPoints.QuitarVida();
-                    if (playerPoints.GetVidas() == 0)
-                    {
-                        finJuego = true;
-                        gameOverAudio.Play();
-                        StartCoroutine(CorrutinaFinJuego());
-                    }
+                    finJuego = true;
+                    gameOverAudio.Play();
+                    StartCoroutine(CorrutinaFinJuego());
                 }
+            }
         }
         tocaSuelo = true;
     }
@@ -113,7 +134,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator CorrutinaFinJuego()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         FinJuego();
     }
 
@@ -131,6 +152,12 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision) 
     {
         tocaSuelo = false;
+    }
+
+    void Die()
+    {
+        animator.SetBool("Dead", true);
+        rb.GetComponent<Collider2D>().enabled = false;
     }
 
 }

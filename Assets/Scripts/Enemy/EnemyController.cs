@@ -5,18 +5,22 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public float moveSpeed = 2f;
-    public GameObject player;  // Referencia al GameObject del jugador
+    public GameObject player;
     public float detectionRange = 5f;
     public float attackRange = 1f;
     public Animator animator;
     public int maxHp = 100;
     private int currentHp;
     private bool movingRight = true;
+    private CapsuleCollider2D enemyCollider;
+    private Vector2 originalColliderSize;
 
     void Start()
     {
         currentHp = maxHp;
         transform.localScale = new Vector3(1, 1, 1);
+        enemyCollider = GetComponent<CapsuleCollider2D>();
+        originalColliderSize = enemyCollider.size;
     }
 
     void Update()
@@ -68,13 +72,21 @@ public class EnemyController : MonoBehaviour
     {
         if (distanceToPlayer <= attackRange)
         {
+            // Agrandar solo la dimensión x del collider
+            enemyCollider.size = new Vector2(originalColliderSize.x * 2f, originalColliderSize.y);
+            
             animator.SetTrigger("Attack");
-            Debug.Log("Ataque realizado.");
+
+            // Restaurar el tamaño original del collider después del ataque
+            StartCoroutine(RestoreColliderSize());
         }
-        else
-        {
-            Debug.Log("Jugador fuera del rango de ataque.");
-        }
+    }
+
+    IEnumerator RestoreColliderSize()
+    {
+        // Esperar un tiempo antes de restaurar el tamaño original
+        yield return new WaitForSeconds(4f);
+        enemyCollider.size = originalColliderSize;
     }
 
     public void TakeDamage(int damage)
@@ -89,8 +101,10 @@ public class EnemyController : MonoBehaviour
 
     void Die()
     {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
         animator.SetBool("Dead", true);
-        GetComponent<Collider2D>().enabled = false;
+        rb.GetComponent<Collider2D>().enabled = false;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
         this.enabled = false;
     }
 }
