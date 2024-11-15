@@ -6,6 +6,8 @@ TagManager:
   tags:
   - enemy
   - Tilemap
+  - FlyingEnemy
+  - ChaseTrigger
   layers:
   - Default
   - TransparentFX

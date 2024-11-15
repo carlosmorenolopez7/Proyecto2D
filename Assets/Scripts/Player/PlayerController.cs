@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     float x;
     public int fuerzaSalto;
-    private bool tocaSuelo = true;
+    private bool tocaSuelo;
     private SpriteRenderer spriteRenderer;
     public AudioSource gameOverAudio;
     private bool finJuego = false;
@@ -75,11 +75,17 @@ public class PlayerController : MonoBehaviour
         }
         rb.velocity = new Vector2 (x*velocidad*Time.fixedDeltaTime, rb.velocity.y);
     }
-
     public bool TocandoSuelo()
     {
-        RaycastHit2D toca = Physics2D.Raycast(transform.position + new Vector3(0,-2f,0), Vector2.down, 0.75f);
-        return toca.collider != null;
+        RaycastHit2D[] tocan = Physics2D.RaycastAll(transform.position + new Vector3(0, -2f, 0), Vector2.down, 0.75f);
+        foreach (RaycastHit2D toca in tocan)
+        {
+            if (toca.collider != null && toca.collider.CompareTag("Tilemap"))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void OnDrawGizmos()

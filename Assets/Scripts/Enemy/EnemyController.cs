@@ -64,7 +64,7 @@ public class EnemyController : MonoBehaviour
         // Si el jugador está dentro del rango de detección, intentamos atacar
         if (distanceToPlayer <= detectionRange)
         {
-            Attack(distanceToPlayer); // Llamamos a la función de ataque con la distancia
+            Attack(distanceToPlayer);
         }
     }
 
