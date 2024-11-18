@@ -6,6 +6,16 @@ public class LevelLoader : MonoBehaviour
 {
     public Animator transition;
     public float transitionTime = 1f;
+    public AudioSource levelMusic;
+
+    void Start()
+    {
+        // Reproduce la música del nivel al inicio
+        if (levelMusic != null)
+        {
+            levelMusic.Play();
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -30,15 +40,19 @@ public class LevelLoader : MonoBehaviour
         SceneManager.LoadScene(levelIndex);
     }
 
+    public void StopMusic()
+    {
+        if (levelMusic != null)
+        {
+            levelMusic.Stop();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
-            if (boxCollider != null && boxCollider.name == "FinalNivel")
-            {
-                LoadNextLevel();
-            }
+            LoadNextLevel();
         }
     }
 }

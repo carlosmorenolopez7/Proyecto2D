@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour
     private void FinJuego()
     {
         gameOverAudio.Play();
-        SceneManager.LoadScene("FinJuego");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public bool FinalizadoJuego()
@@ -162,6 +162,10 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
+        if (gameOverAudio != null)
+        {
+            gameOverAudio.Play();
+        }
         animator.SetBool("Dead", true);
         rb.GetComponent<Collider2D>().enabled = false;
     }

@@ -18,7 +18,14 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         currentHp = maxHp;
+    if (gameObject.name == "skeleBoss")
+    {
+        transform.localScale = new Vector3(4, 4, 4);
+    }
+    else
+    {
         transform.localScale = new Vector3(1, 1, 1);
+    }
         enemyCollider = GetComponent<CapsuleCollider2D>();
         originalColliderSize = enemyCollider.size;
     }
@@ -68,19 +75,46 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void Attack(float distanceToPlayer)
+void Attack(float distanceToPlayer)
+{
+    if (distanceToPlayer <= attackRange)
     {
-        if (distanceToPlayer <= attackRange)
+        if (gameObject.name == "skeleBoss")
         {
-            // Agrandar solo la dimensión x del collider
-            enemyCollider.size = new Vector2(originalColliderSize.x * 2f, originalColliderSize.y);
-            
-            animator.SetTrigger("Attack");
-
-            // Restaurar el tamaño original del collider después del ataque
-            StartCoroutine(RestoreColliderSize());
+            StartCoroutine(DelayedAttack());
+        }
+        else
+        {
+            PerformAttack();
         }
     }
+}
+
+IEnumerator DelayedAttack()
+{
+    yield return new WaitForSeconds(4f);
+    PerformAttack();
+}
+
+void PerformAttack()
+{
+    if (enemyCollider == null)
+    {
+        return;
+    }
+
+    if (animator == null)
+    {
+        return;
+    }
+
+    // Agrandar solo la dimensión x del collider
+    enemyCollider.size = new Vector2(originalColliderSize.x * 2f, originalColliderSize.y);
+    animator.SetTrigger("Attack");
+
+    // Restaurar el tamaño original del collider después del ataque
+    StartCoroutine(RestoreColliderSize());
+}
 
     IEnumerator RestoreColliderSize()
     {
