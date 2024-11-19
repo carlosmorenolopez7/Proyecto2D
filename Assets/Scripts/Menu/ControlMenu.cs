@@ -17,7 +17,7 @@ public class ControlMenu : MonoBehaviour
 
     public void BotonCreditos()
     {
-        SceneManager.LoadScene("Creditos");
+        SceneManager.LoadScene("Opciones");
     }
 
     public void BotonSalirCreditos()
