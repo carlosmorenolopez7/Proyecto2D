@@ -38,7 +38,6 @@ public class SettingsMenu : MonoBehaviour
     {
         volumeSlider.value = PlayerPrefs.GetFloat("volume");
         Screen.fullScreen = PlayerPrefs.GetInt("fullscreen") == 1;
-        fullscreenToggle.isOn = Screen.fullScreen;
         int qualityIndex = PlayerPrefs.GetInt("quality");
         QualitySettings.SetQualityLevel(qualityIndex);
         graphicsDropdown.value = qualityIndex;
