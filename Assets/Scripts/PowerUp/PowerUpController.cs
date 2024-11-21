@@ -8,16 +8,9 @@ public class PowerUpController : MonoBehaviour
     public TextMeshProUGUI secretText; // Referencia al objeto de texto en el canvas
     public float displayDuration; // Duración en segundos para mostrar el texto
 
-    // Start is called before the first frame update
     void Start()
     {
-        secretText.gameObject.SetActive(false); // Asegúrate de que el texto esté desactivado al inicio
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        secretText.gameObject.SetActive(false);
     }
 
     // Método para detectar colisiones
@@ -25,8 +18,9 @@ public class PowerUpController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            secretText.gameObject.SetActive(true); // Activa el texto en el canvas
-            StartCoroutine(DeactivateTextAfterDelay(displayDuration)); // Inicia la corrutina para desactivar el texto
+            secretText.gameObject.SetActive(true);
+            StartCoroutine(DeactivateTextAfterDelay(displayDuration));
+            GameManager.IncrementPowerUpCount();
         }
     }
 
@@ -34,7 +28,7 @@ public class PowerUpController : MonoBehaviour
     IEnumerator DeactivateTextAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        secretText.gameObject.SetActive(false); // Desactiva el texto
-        Destroy(gameObject); // Destruye el power-up después de desactivar el texto
+        secretText.gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }

@@ -1207,6 +1207,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volumeSlider: {fileID: 892324329}
+  graphicsDropdown: {fileID: 1254832194}
+  fullscreenToggle: {fileID: 1102434442}
 --- !u!114 &528358649
 MonoBehaviour:
   m_ObjectHideFlags: 0

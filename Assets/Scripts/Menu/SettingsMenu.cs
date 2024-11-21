@@ -3,28 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using TMPro;
 
 public class SettingsMenu : MonoBehaviour
 {
-    [SerializeField] Slider volumeSlider;
+    public Slider volumeSlider;
+    public TMP_Dropdown graphicsDropdown;
+    public Toggle fullscreenToggle;
 
     void Start()
     {
-        if (!PlayerPrefs.HasKey("volume"))
-        {
-            PlayerPrefs.SetFloat("volume", 1f);
-        }
-
-        if (!PlayerPrefs.HasKey("fullscreen"))
-        {
-            PlayerPrefs.SetInt("fullscreen", Screen.fullScreen ? 1 : 0);
-        }
-
-        if (!PlayerPrefs.HasKey("quality"))
-        {
-            PlayerPrefs.SetInt("quality", QualitySettings.GetQualityLevel());
-        }
-
         Load();
     }
 
@@ -46,14 +34,17 @@ public class SettingsMenu : MonoBehaviour
         Save();
     }
 
-    private void Load() 
+    private void Load()
     {
         volumeSlider.value = PlayerPrefs.GetFloat("volume");
         Screen.fullScreen = PlayerPrefs.GetInt("fullscreen") == 1;
-        QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("quality"));
+        fullscreenToggle.isOn = Screen.fullScreen;
+        int qualityIndex = PlayerPrefs.GetInt("quality");
+        QualitySettings.SetQualityLevel(qualityIndex);
+        graphicsDropdown.value = qualityIndex;
     }
 
-    private void Save() 
+    private void Save()
     {
         PlayerPrefs.SetFloat("volume", volumeSlider.value);
         PlayerPrefs.SetInt("fullscreen", Screen.fullScreen ? 1 : 0);
