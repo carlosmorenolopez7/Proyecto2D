@@ -7357,16 +7357,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 65, y: -6, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 19
-      m_TileSpriteIndex: 19
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 66, y: -6, z: 0}
     second:
       serializedVersion: 2
@@ -11467,7 +11457,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: af46c0bf312c2e14b8ed2642ec527135, type: 2}
   - m_RefCount: 18
     m_Data: {fileID: 11400000, guid: 96c268be94afe7c428140d5d1f0e90aa, type: 2}
-  - m_RefCount: 211
+  - m_RefCount: 210
     m_Data: {fileID: 11400000, guid: a42a7339282d6164fa20f2d96f2a3e84, type: 2}
   - m_RefCount: 15
     m_Data: {fileID: 11400000, guid: 8287237c72140454d907d4c1f18be50a, type: 2}
@@ -11998,7 +11988,7 @@ Tilemap:
     m_Data: {fileID: 1654406361, guid: 705ea5e4e94eb184d8976f1a82a21bcd, type: 3}
   - m_RefCount: 18
     m_Data: {fileID: 69928219, guid: 705ea5e4e94eb184d8976f1a82a21bcd, type: 3}
-  - m_RefCount: 211
+  - m_RefCount: 210
     m_Data: {fileID: -485518131, guid: 705ea5e4e94eb184d8976f1a82a21bcd, type: 3}
   - m_RefCount: 15
     m_Data: {fileID: -1489861689, guid: 705ea5e4e94eb184d8976f1a82a21bcd, type: 3}
@@ -12491,7 +12481,7 @@ Tilemap:
   - m_RefCount: 30
     m_Data: {fileID: -826488707, guid: 705ea5e4e94eb184d8976f1a82a21bcd, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 707
+  - m_RefCount: 706
     m_Data:
       e00: 1
       e01: 0
@@ -12510,7 +12500,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 707
+  - m_RefCount: 706
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -22043,14 +22033,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 869239962151474029, guid: c21e3beda0cf99d469fc1a9d5f111f99, type: 3}
-      propertyPath: m_Interpolate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798242661604206293, guid: c21e3beda0cf99d469fc1a9d5f111f99, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 4416338955703512663, guid: c21e3beda0cf99d469fc1a9d5f111f99, type: 3}
+      propertyPath: powerUpClip
+      value: 
+      objectReference: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
     - target: {fileID: 4766564419363243918, guid: c21e3beda0cf99d469fc1a9d5f111f99, type: 3}
       propertyPath: m_LocalPosition.x
       value: -148.44
@@ -22385,20 +22371,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1762498243634833835, guid: b0ad139aceef94a468f82d02e2a4c31a, type: 3}
       propertyPath: m_text
-      value: 'Menu '
-      objectReference: {fileID: 0}
-    - target: {fileID: 1762498243634833835, guid: b0ad139aceef94a468f82d02e2a4c31a, type: 3}
-      propertyPath: m_margin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1762498243634833835, guid: b0ad139aceef94a468f82d02e2a4c31a, type: 3}
-      propertyPath: m_margin.z
-      value: -0.00012207031
+      value: Reiniciar
       objectReference: {fileID: 0}
     - target: {fileID: 2866331958269256762, guid: b0ad139aceef94a468f82d02e2a4c31a, type: 3}
       propertyPath: levelMusic
       value: 
       objectReference: {fileID: 1151167775}
+    - target: {fileID: 4255100884984946240, guid: b0ad139aceef94a468f82d02e2a4c31a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 9126031394892271978, guid: b0ad139aceef94a468f82d02e2a4c31a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadMenu
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

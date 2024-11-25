@@ -20,6 +20,12 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     public float fallThreshold;
     public static event Action OnLifeLost;
+    private AudioSource jumpAudioSource;
+    public AudioClip jumpClip;
+    public AudioClip hurtClip;	
+    private AudioSource hurtAudioSource;
+    public AudioClip powerUpClip;
+    private AudioSource powerUpAudioSource;
 
     void Start()
     {
@@ -29,6 +35,9 @@ public class PlayerController : MonoBehaviour
         vulnerable = true;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        jumpAudioSource = GetComponent<AudioSource>();
+        hurtAudioSource = GetComponent<AudioSource>();
+        powerUpAudioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -44,6 +53,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && TocandoSuelo())
         {
             rb.AddForce(Vector2.up * fuerzaSalto, ForceMode2D.Impulse);
+            jumpAudioSource.PlayOneShot(jumpClip);
         }
 
         if (rb.velocity.x > 0)
@@ -55,15 +65,21 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.flipX = true;
         }
 
-        // Verificar si el jugador ha caído por debajo del umbral
         if (transform.position.y < fallThreshold)
         {
-            // Si el jugador cae por debajo del umbral, desencadenar la muerte
             if (!finJuego)
             {
                 finJuego = true;
                 StartCoroutine(CorrutinaFinJuego());
             }
+        }
+    }
+
+    public void PlayPowerUpSound()
+    {
+        if (powerUpClip != null && powerUpAudioSource != null)
+        {
+            powerUpAudioSource.PlayOneShot(powerUpClip);
         }
     }
 
@@ -121,6 +137,7 @@ public class PlayerController : MonoBehaviour
                 Invoke("HacerVulnerable", 0.75f);
                 playerPoints.QuitarVida();
                 OnLifeLost?.Invoke();
+                hurtAudioSource.PlayOneShot(hurtClip);
                 if (playerPoints.GetVidas() == 0)
                 {
                     finJuego = true;

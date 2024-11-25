@@ -16,6 +16,8 @@ public class PlayerAttack : MonoBehaviour
     public int attackDamage = 40;
     public float attackRate = 2f;
     float nextAttackTime = 0f;
+    private AudioSource attackAudioSource;
+    public AudioClip attackClip;
 
     void Start()
     {
@@ -23,6 +25,7 @@ public class PlayerAttack : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
+        attackAudioSource = GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -59,6 +62,7 @@ public class PlayerAttack : MonoBehaviour
         }
         attackPoint.gameObject.SetActive(true);
         attackPoint2.gameObject.SetActive(true);
+        attackAudioSource.PlayOneShot(attackClip);
     }
 
     void OnDrawGizmos()

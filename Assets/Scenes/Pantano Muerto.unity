@@ -29049,6 +29049,10 @@ PrefabInstance:
       propertyPath: levelMusic
       value: 
       objectReference: {fileID: 29952547}
+    - target: {fileID: 4861932547872339453, guid: b0ad139aceef94a468f82d02e2a4c31a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -5,7 +5,6 @@ using UnityEngine;
 public static class GameManager
 {
     private static int powerUpCount = 0;
-
     public static int PowerUpCount
     {
         get { return powerUpCount; }
@@ -13,6 +12,9 @@ public static class GameManager
 
     public static void IncrementPowerUpCount()
     {
-        powerUpCount++;
+        if (powerUpCount < 3)
+        {
+            powerUpCount++;
+        }
     }
 }

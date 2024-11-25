@@ -7,7 +7,7 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
-    public AudioSource levelMusic; // Añade esta línea para la referencia al AudioSource
+    public AudioSource levelMusic;
 
     // Update is called once per frame
     void Update()
@@ -47,8 +47,15 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-    public void QuitGame()
+    public void RestartLevel()
     {
-        Application.Quit();
+        // Restaura el tiempo de juego
+        Time.timeScale = 1f;
+        
+        // Obtiene el nombre de la escena actual
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        
+        // Carga la escena actual nuevamente
+        SceneManager.LoadScene(currentSceneName);
     }
 }

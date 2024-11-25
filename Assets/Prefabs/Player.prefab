@@ -212,7 +212,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -386,6 +386,9 @@ MonoBehaviour:
   gameOverAudio: {fileID: 7990203922971792037}
   vulnerable: 0
   fallThreshold: -60
+  jumpClip: {fileID: 8300000, guid: 4e349dc959014a845b9aa317d1c2b7f0, type: 3}
+  hurtClip: {fileID: 8300000, guid: 2b21ef916f6943c439b71a7c74568878, type: 3}
+  powerUpClip: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
 --- !u!114 &7129321768741201376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,6 +421,7 @@ MonoBehaviour:
   attackRange: 1.44
   attackDamage: 50
   attackRate: 2
+  attackClip: {fileID: 8300000, guid: e32e3bde5559afb4cad3ef963cc96446, type: 3}
 --- !u!114 &7339719186353220232
 MonoBehaviour:
   m_ObjectHideFlags: 0
