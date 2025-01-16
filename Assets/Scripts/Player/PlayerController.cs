@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
         }
         rb.velocity = new Vector2 (x*velocidad*Time.fixedDeltaTime, rb.velocity.y);
     }
+    
     public bool TocandoSuelo()
     {
         RaycastHit2D[] tocan = Physics2D.RaycastAll(transform.position + new Vector3(0, -2f, 0), Vector2.down, 0.75f);

@@ -22033,10 +22033,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4416338955703512663, guid: c21e3beda0cf99d469fc1a9d5f111f99, type: 3}
-      propertyPath: powerUpClip
+    - target: {fileID: 869239962151474029, guid: c21e3beda0cf99d469fc1a9d5f111f99, type: 3}
+      propertyPath: m_Material
       value: 
-      objectReference: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
+      objectReference: {fileID: 6200000, guid: 6ab4559a01e83ee41bcc854fdd55836b, type: 2}
     - target: {fileID: 4766564419363243918, guid: c21e3beda0cf99d469fc1a9d5f111f99, type: 3}
       propertyPath: m_LocalPosition.x
       value: -148.44
